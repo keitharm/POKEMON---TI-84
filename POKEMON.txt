@@ -1,0 +1,1265 @@
+::
+0→D
+Normal
+1→Z
+"3.00B+"→Str3
+"03/01/11---+"→Str4
+1→θ
+If θ≤0
+1→θ
+Float
+Output(1,1,"+--------------+")
+Output(2,1,"+---Pokemon!---+")
+Output(3,1,"+---By-Keith---+")
+Output(4,1,"+--------------+")
+Output(5,1,"+-Version -+")
+Output(5,11,Str3)
+Output(6,1,"+---")
+Output(6,5,Str4)
+Output(7,1,"+---11:34 AM---+")
+Output(8,1,"+--------------+")
+Pause 
+ClrHome
+Lbl BZ
+ClrHome
+{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}→⌊BATT
+{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}→L₁
+Output(4,4,"Loading...")
+Menu("-----Pokemon----","Single Player",BA,"Multi Player",BB,"New Game",PP,"Quit",BY)
+Lbl PP
+Menu("New Game?","No",BZ,"",BZ,"",BZ,"",BZ,"",BZ,"",BZ,"Yes",PQ)
+Lbl PQ
+{0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}→⌊POKE
+Goto BZ
+Lbl UU
+ClrHome
+Output(1,1,"Trainer:")
+Output(1,9,Str0)
+Output(2,1,"Prog Ver:")
+Output(2,10,Str3)
+Pause 
+Goto BZ
+Lbl BY
+Stop
+Lbl BB
+ClrHome
+If ⌊POKE(1)=0 and Z=1
+Then
+Disp "No Single player","data detected!","","Play single","player first!"
+Pause 
+ClrHome
+Goto BZ
+End
+If Z≠1
+Then
+⌊POKE→⌊BATT
+⌊POKE→L₁
+
+
+randInt(1,5)→T
+If T=1
+"Bill"→Str2
+If T=2
+"Mary"→Str2
+If T=3
+"John"→Str2
+If T=4
+"Lucy"→Str2
+If T=5
+"Jill"→Str2
+End
+Output(4,4,"Loading...")
+Menu("Multi Player","1st Step",BC,"2nd Step",BD,"Battle",BE,"Back",BZ)
+Lbl BC
+ClrHome
+Disp "-----Step 1-----","Preparing Data","file."
+⌊POKE→L₁
+Str0→Str1
+Disp "",L₁,"Done!"
+Pause 
+ClrHome
+Goto BB
+Lbl BD
+ClrHome
+Disp "-----Step 2-----","Make sure other","player has","completed step 1","first!"
+Pause 
+ClrHome
+Disp "Recieving other","player's data..."
+L₁(1)→G
+L₁(7)→F
+GetCalc(L₁)
+If L₁(1)=G and L₁(7)=F
+Then
+Disp "","No calculator","detected..."
+Pause 
+ClrHome
+Goto BB
+End
+L₁→⌊BATT
+GetCalc(Str1)
+Str1→Str2
+Disp "",⌊BATT,"Data Recieved!"
+⌊POKE→L₁
+Str0→Str1
+Pause 
+ClrHome
+Goto BB
+Lbl BE
+ClrHome
+If ⌊BATT(7)=0 and ⌊BATT(1)=0 and Z=1
+Then
+Disp "No valid trainer","data detected.","Please run steps","1 and 2 again.","Make sure both","calculators are","connected via"
+Pause 
+Disp "usb cable."
+Pause 
+ClrHome
+Goto BB
+End
+Output(1,1,"Trainer")
+Output(1,9,Str2)
+Output(2,1,"wants to fight!")
+Pause 
+ClrHome
+Disp Str2,"sent out"
+If ⌊BATT(6)=1
+"Bulbasaur"→Str3
+If ⌊BATT(6)=2
+"Charmander"→Str3
+If ⌊BATT(6)=3
+"Squirtle"→Str3
+If ⌊BATT(6)>3BATT(6)<1
+"MISSINGNO."→Str3
+If ⌊POKE(6)=1
+"Bulbasaur"→Str4
+If ⌊POKE(6)=2
+"Charmander"→Str4
+If ⌊POKE(6)=3
+"Squirtle"→Str4
+If ⌊POKE(6)>3POKE(6)<1
+Then
+"MISSINGNO."→Str4
+1→⌊POKE(3)
+End
+Disp Str3,"","Level:",⌊BATT(3)
+Pause 
+Lbl BF
+ClrHome
+⌊BATT(9)→⌊BATT(8)
+⌊POKE(9)→⌊POKE(8)
+Lbl BG
+ClrHome
+Output(1,1,"You:")
+Output(1,5,⌊POKE(8))
+Output(1,9,"Ene:")
+Output(1,13,⌊BATT(8))
+Output(2,1,"----------------")
+Output(3,1,Str4)
+Output(3,11,"hit")
+(((((2*⌊POKE(3))/5+2)*⌊POKE(4)*50/⌊POKE(5))/50)+2)(randInt(85,100)/100)→A
+iPart(A)→A
+Output(3,14,A)
+⌊BATT(8)-A→⌊BATT(8)
+If ⌊BATT(8)<1
+Then
+Pause 
+Goto BH
+End
+Output(5,1,Str3)
+Output(5,11,"hit ")
+(((((2*⌊BATT(3))/5+2)*⌊BATT(4)*50/⌊BATT(5))/50)+2)(randInt(85,100)/100)→B
+iPart(B)→B
+⌊POKE(8)-B→⌊POKE(8)
+Output(5,14,B)
+If ⌊POKE(8)<1
+Then
+Pause 
+Goto BI
+End
+Pause 
+Goto BG
+Lbl BH
+ClrHome
+Output(2,5,"Victory!")
+Output(4,1,Str0)
+Output(5,1,"Defeated")
+Output(6,1,Str2)
+Pause 
+⌊POKE(9)→⌊POKE(8)
+Goto BB
+Lbl BI
+ClrHome
+Output(2,5,"Defeat!")
+Output(4,1,Str2
+Output(5,1,"Defeated")
+Output(6,1,Str0)
+⌊POKE(9)→⌊POKE(8)
+Pause 
+Goto BB
+Lbl BA
+If ⌊POKE(1)≠0
+Then
+ClrHome
+Output(1,2,"Continue Game?")
+Output(2,1,"----------------")
+Output(3,1,"Loc:")
+If ⌊POKE(1)=1
+Output(3,5,"Home")
+If ⌊POKE(1)=2
+Output(3,5,"Pallet Town")
+If ⌊POKE(1)=3
+Output(3,5,"Viridian City")
+If ⌊POKE(1)=4
+Output(3,5,"Pewter City")
+If ⌊POKE(1)=5
+Output(3,5,"Mt. Moon")
+If ⌊POKE(1)=6
+Output(3,5,"Cerulean City")
+If ⌊POKE(1)=7
+Output(3,5,"Rock Cave")
+If ⌊POKE(1)=8
+Output(3,5,"Vermillion City")
+If ⌊POKE(1)>8POKE(1)<1
+Output(3,5,"°89 31ty")
+Output(4,1,"----------------")
+Output(5,1,"Poke:")
+If ⌊POKE(6)=0
+Output(5,6,"n/a")
+If ⌊POKE(6)=1
+Output(5,6,"Bulbasaur")
+If ⌊POKE(6)=2
+Output(5,6,"Charmander")
+If ⌊POKE(6)=3
+Output(5,6,"Squirtle")
+If ⌊POKE(6)>3POKE(6)<0
+Output(5,6,"MISSINGNO.")
+Output(6,1,"Level:")
+Output(6,7,"0")
+If ⌊POKE(6)≠0
+Output(6,7,⌊POKE(3))
+If ⌊POKE(3)=0
+Output(6,7,"---"
+Output(7,1,"Trainer:")
+Output(7,9,Str0)
+Output(8,5,⌊POKE(10))
+If ⌊POKE(10)=0POKE(10)>1
+Output(8,7,"Badges")
+If ⌊POKE(10)=1
+Output(8,7,"Badge")
+0→G
+Pause 
+ClrHome
+If ⌊POKE(1)=1
+Goto 3
+If ⌊POKE(1)=2
+Goto 5
+If ⌊POKE(1)=3
+Goto 12
+If ⌊POKE(1)=4
+Goto 15
+If ⌊POKE(1)=5
+Goto 24
+If ⌊POKE(1)=6
+Goto 28
+If ⌊POKE(1)=7
+Goto 37
+If ⌊POKE(1)=8
+Goto 42
+If ⌊POKE(1)>8POKE(1)<1
+Goto AG
+Else
+Goto AA
+Lbl AG
+ClrHome
+Disp "Error",randInt(138,892)
+
+Disp "Save file","Unreadable!"
+Stop
+Lbl AA
+{0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}→⌊POKE
+0→A
+ClrHome
+Disp "Welcome to the","World of Pokemon","My name is","Prof. Oak."
+Pause 
+ClrHome
+Disp "First off, what","is your name?"
+Input "Name:",Str0
+ClrHome
+Disp "Ah, so your name","is",Str0,"What"
+If Str0="KEITH"}="Keith"
+Then
+Disp "an AMAZING name!"
+Else
+Disp "a great name."
+End
+Pause 
+ClrHome
+Disp Str0,"your Pokemon","adventure is","about to begin.","Meet me in my","Lab later."
+Pause 
+ClrHome
+Disp "","","","To quit the game","hit the on key","and then enter."
+Pause 
+ClrHome
+Lbl 3
+1→⌊POKE(1)
+Output(4,4,"Loading...")
+Menu("Home","Talk to Mom",4,"Pallet Town",5,"View Map",98)
+Lbl AF
+Output(4,4,"Loading...")
+Menu("New Game","No",3,"",3,"",3,"",3,"",3,"",3,"Yes",AA)
+Lbl 4
+ClrHome
+Disp "Oh, hi",Str0,"let me heal your","Pokemon for you."
+If ⌊POKE(2)≠1
+Then
+Disp "Oh you dont have","any on you.","Visit Prof. Oak."
+Pause 
+ClrHome
+Goto 3
+Else
+⌊POKE(9)→⌊POKE(8)
+Disp "There all","healthy."
+Pause 
+ClrHome
+Goto 3
+End
+Lbl 5
+0→G
+2→⌊POKE(1)
+Output(4,4,"Loading...")
+Menu("Pallet Town","Home",3,"Viridian City",7,"Prof. Oak",6,"View Map",98,"View Poke",91)
+Lbl 7
+If ⌊POKE(2)≠1
+Then
+ClrHome
+Disp "Woah! Where do","you think you're","going?","Wild Pokemon are","on Route 1.","GO GET SUM!!!"
+Pause 
+ClrHome
+Goto 5
+Else
+Goto 8
+End
+Lbl 6
+If ⌊POKE(2)≠1
+Then
+ClrHome
+Disp "Oh,",Str0,"Take one of my","Pokemon"
+Pause 
+Output(4,4,"Loading...")
+Menu("Choose","Bulbasaur",9,"Charmander",10,"Squirtle",AB)
+Lbl 9
+{2,1,5,12,12,1,64,21,21,0,0,0,0,0,0,0,0,0,0,0}→⌊POKE
+ClrHome
+Disp "Bulbasaur, what","a great Pokemon!"
+Goto 11
+Lbl 10
+{2,1,5,12,11,2,64,20,20,0,0,0,0,0,0,0,0,0,0,0}→⌊POKE
+ClrHome
+Disp "Charmander, what","a great","Pokemon!"
+Goto 11
+Lbl AB
+{2,1,5,12,14,3,64,20,20,0,0,0,0,0,0,0,0,0,0,0}→⌊POKE
+ClrHome
+Disp "Squirtle, what a","great Pokemon!"
+Goto 11
+Lbl 11
+Disp "NOW GET LOST!!!"
+Pause 
+Goto 5
+Else
+ClrHome
+Disp "Oh, ",Str0,"Take care of my"
+If ⌊POKE(6)=1
+Disp "Bulbasaur"
+If ⌊POKE(6)=2
+Disp "Charmander"
+If ⌊POKE(6)=3
+Disp "Squirtle"
+If ⌊POKE(6)>3POKE(6)<0
+Disp "MISSINGNO."
+Pause 
+Goto 5
+End
+Lbl 8
+If randInt(1,D)=D
+Then
+12→X
+55→L
+75→H
+Goto 99
+End
+12→X
+1→L
+3→H
+Goto 99
+Lbl 12
+3→⌊POKE(1)
+0→G
+Output(4,4,"Loading...")
+Menu("Viridian City","Pokemon Center",13,"Pewter City",14,"Pallet Town",90,"View Map",98,"View Poke",91)
+Lbl 14
+If randInt(1,100)=64
+Then
+15→X
+55→L
+75→H
+Goto 99
+End
+15→X
+2→L
+5→H
+Goto 99
+Lbl 13
+ClrHome
+Disp "Welcome to the","Pokemon Center!","We heal your","Pokemon for you."
+Pause 
+⌊POKE(9)→⌊POKE(8)
+ClrHome
+Disp "Thank you for","waiting.  Your","Pokemon is","fully healed.","Please come back","if your Pokemon","is hurt."
+Pause 
+ClrHome
+If ⌊POKE(1)=2
+Goto 5
+If ⌊POKE(1)=3
+Goto 12
+If ⌊POKE(1)=4
+Goto 15
+If ⌊POKE(1)=5
+Goto 24
+If ⌊POKE(1)=6
+Goto 28
+If ⌊POKE(1)=7
+Goto 37
+If ⌊POKE(1)=8
+Goto 42
+Lbl 90
+5→X
+1→L
+3→H
+Goto 99
+Lbl 99
+ClrHome
+If X=5=12
+Then
+"Pidgey→Str9
+1→⌊POKE(17)
+End
+If X=12 and L=55
+Then
+"SUICUNE"→Str9
+1→⌊POKE(17)
+End
+If X=15 and L=55
+Then
+"RAIKOU"→Str9
+1→⌊POKE(17)
+End
+If X=15X=12 and H=5)
+Then
+"Caterpie"→Str9
+2→⌊POKE(17)
+End
+If X=28
+Then
+"Zubat"→Str9
+2→⌊POKE(17)
+End
+If X=24X=15 and H=10)
+Then
+"Ratatta"→Str9
+1→⌊POKE(17)
+End
+If X=37X=28 and L=12)
+Then
+"Geodude"→Str9
+3→⌊POKE(17)
+End
+If (X=15 and H=25)X=42 and H=25)
+Then
+"Diglett"→Str9
+3→⌊POKE(17)
+End
+If G=1
+"Geodude"→Str9
+If G=2
+"Onix"→Str9
+If G=3
+"Zubat"→Str9
+If G=4
+"Koffing"→Str9
+If G=5
+"Golbat"→Str9
+If G=6
+"Staryu"→Str9
+If G=7
+"Starmie"→Str9
+If G=8
+"Voltorb"→Str9
+If G=9
+"Pikachu"→Str9
+If G=0
+Disp "A wild",Str9
+If G≠0
+Disp "A tame",Str9
+randInt(L,H)→A
+If G≠0
+Goto 93
+2*A+12→E
+iPart(E)→E
+2*A+8→O
+iPart(O)→O
+2*A+8→R
+iPart(R)→R
+Lbl 93
+A→Q
+Disp "appeared!","Lvl. ",A,"Cur Health:",⌊POKE(8)
+Pause 
+ClrHome
+Lbl 92
+Output(4,4,"Loading...")
+Menu("Battle Menu","Fight",97,"Run",95)
+Lbl 95
+If G≠0
+Then
+ClrHome
+Disp "This is a","trainer battle!","No running!"
+Pause 
+ClrHome
+Goto 92
+End
+ClrHome
+Disp "Got away safely"
+0→G
+Pause 
+ClrHome
+If X=12
+Goto 12
+If X=5
+Goto 5
+If X=15
+Goto 15
+If X=24
+Goto 24
+If X=25
+Goto 15
+If X=28
+Goto 28
+If X=37
+Goto 37
+If X=42
+Goto 42
+If randInt(1,8192)=1993
+1→⌊POKE(15)
+Lbl 97
+ClrHome
+Output(1,1,"You:")
+Output(1,5,⌊POKE(8))
+Output(1,9,"Ene:")
+Output(1,13,E)
+Output(2,1,"----------------")
+If ⌊POKE(6)=1
+Output(3,1,"Bulbasaur")
+If ⌊POKE(6)=2
+Output(3,1,"Charmander")
+If ⌊POKE(6)=3
+Output(3,1,"Squirtle")
+Output(3,11,"hit")
+If ⌊POKE(6)>3POKE(6)<1 and ⌊POKE(1)>2
+Then
+Output(3,1,"MISSINGNO."
+End
+If ⌊POKE(2)=1
+(((((2*⌊POKE(3))/5+2)*⌊POKE(4)*50/R)/50)+2)(randInt(85,100)/100)→A
+If ⌊POKE(2)≠1
+–255→A
+iPart(A)→A
+Output(3,14,A)
+E-A→E
+If E<1
+Goto 89
+
+Output(5,1,Str9)
+Output(5,10,"hit ")
+If ⌊POKE(2)=1
+(((((2*Q)/5+2)*O*50/⌊POKE(5))/50)+2)(randInt(85,100)/100)→D
+If ⌊POKE(2)≠1
+randInt(1,5)→D
+iPart(D)→D
+Output(5,14,D)
+⌊POKE(8)-D→⌊POKE(8)
+If ⌊POKE(8)≤0
+Then
+Pause 
+Goto 88
+End
+Pause 
+Goto 97
+Lbl 89
+Pause 
+ClrHome
+If ⌊POKE(17)=1
+.25+⌊POKE(14)→⌊POKE(14)
+If ⌊POKE(17)=2
+.25+⌊POKE(15)→⌊POKE(15)
+If ⌊POKE(17)=3
+.25+⌊POKE(16)→⌊POKE(16)
+1+⌊POKE(18)→⌊POKE(18)
+Output(2,5,"Victory!")
+Output(4,2,"Gained")
+iPart((64*Q))/7→U
+If G≠0
+U*3→U
+If X=25
+U*1.5→U
+U*θ→U
+iPart(U)→U
+Output(4,9,U)
+Output(4,14,"XP")
+U+⌊POKE(7)→⌊POKE(7)
+0→G
+Pause 
+If ⌊POKE(7)-⌊POKE(3)^3≥0 and ⌊POKE(3)≤99
+Then
+Lbl 68
+ClrHome
+⌊POKE(3)→K
+K+1→K
+Output(1,1,"---LEVEL UP!---"
+
+Output(3,1,"Level:")
+⌊POKE(3)+1→⌊POKE(3)
+randInt(1,3)→T
+T+iPart(⌊POKE(15))→T
+T+⌊POKE(4)→⌊POKE(4)
+Output(3,7,⌊POKE(3)-1)
+Output(3,9,"+")
+Output(3,10,"1")
+Output(3,11,"=")
+Output(3,12,⌊POKE(3))
+Output(4,1,"Att:")
+Output(4,5,⌊POKE(4)-T)
+Output(4,8,"+")
+Output(4,9,T)
+Output(4,11,"=")
+Output(4,12,⌊POKE(4))
+Output(5,1,"Def:")
+randInt(1,3)→T
+T+iPart(⌊POKE(16))→T
+T+⌊POKE(5)→⌊POKE(5)
+Output(5,5,⌊POKE(5)-T)
+Output(5,8,"+")
+Output(5,9,T)
+Output(5,11,"=")
+Output(5,12,⌊POKE(5))
+randInt(1,4)→S
+S+iPart(⌊POKE(14))→S
+S+⌊POKE(8)→⌊POKE(8)
+S+⌊POKE(9)→⌊POKE(9)
+Output(6,1,"HP:")
+Output(6,4,⌊POKE(9)-S)
+Output(6,7,"+")
+Output(6,8,S)
+Output(6,10,"=")
+Output(6,11,⌊POKE(9))
+Output(7,1,"Tot XP:")
+Output(7,8,⌊POKE(7))
+Output(8,1,"Next lvl:")
+0→⌊POKE(14)
+0→⌊POKE(15)
+0→⌊POKE(16)
+If ⌊POKE(3)<100
+Then
+Output(8,10,(⌊POKE(3)^3)-⌊POKE(7))
+Else
+Output(8,10,"0")
+End
+If (⌊POKE(7)-⌊POKE(3)^3)>0 and ⌊POKE(3)<100
+Goto 68
+Pause 
+End
+If X=12
+Goto 12
+If X=5
+Goto 5
+If X=15
+Goto 15
+If X=19
+Goto 19
+If X=20
+Goto 20
+If X=24
+Goto 24
+If X=25
+Goto 15
+If X=29
+Goto 29
+If X=30
+Goto 30
+If X=31
+Goto 31
+If X=28
+Goto 28
+If X=33
+Goto 33
+If X=34
+Goto 34
+If X=37
+Goto 37
+If X=44
+Goto 44
+If X=46
+Goto 46
+If X=42
+Goto 42
+Lbl 88
+ClrHome
+0→G
+1+⌊POKE(19)→⌊POKE(19)
+Output(2,5,"Defeat!")
+Pause 
+ClrHome
+Disp Str0,"Blacked Out!"
+0→G
+Pause 
+⌊POKE(9)→⌊POKE(8)
+If X=5
+Goto 4
+If X=25
+Goto 15
+Goto 13
+Lbl 98
+ClrHome
+AxesOff
+ClrDraw
+RecallPic 9
+If ⌊POKE(1)=1
+Then
+Text(43,19,"+")
+Text(55,50,"Home")
+End
+If ⌊POKE(1)=2
+Then
+Text(43,19,"+")
+Text(55,50,"Pallet Town")
+End
+If ⌊POKE(1)=3
+Then
+Text(27,19,"+")
+Text(55,50,"Viridian City")
+End
+If ⌊POKE(1)=4
+Then
+Text(11,19,"+")
+Text(55,50,"Pewter City")
+End
+If ⌊POKE(1)=5
+Then
+Text(55,50,"Mt. Moon")
+Text(11,32,"+")
+End
+If ⌊POKE(1)=6
+Then
+Text(55,50,"Cerulean City")
+Text(7,53,"+")
+End
+If ⌊POKE(1)=7
+Then
+Text(55,50,"Rock Cave")
+Text(10,78,"+")
+End
+If ⌊POKE(1)=8
+Then
+Text(55,50,"Vermillion City")
+Text(30,53,"+")
+End
+Pause 
+AxesOn
+ClrDraw
+If ⌊POKE(1)=1
+Goto 3
+If ⌊POKE(1)=2
+Goto 5
+If ⌊POKE(1)=3
+Goto 12
+If ⌊POKE(1)=4
+Goto 15
+If ⌊POKE(1)=5
+Goto 24
+If ⌊POKE(1)=6
+Goto 28
+If ⌊POKE(1)=7
+Goto 37
+If ⌊POKE(1)=8
+Goto 42
+Lbl 91
+ClrHome
+If ⌊POKE(6)=1
+Output(1,1,"Bulbasaur")
+If ⌊POKE(6)=2
+Output(1,1,"Charmander")
+If ⌊POKE(6)=3
+Output(1,1,"Squirtle")
+If (⌊POKE(6)>3POKE(6)<1 and ⌊POKE(1)>2)
+Output(1,1,"MISSINGNO.")
+Output(2,1,"----------------")
+Output(2,5,⌊POKE(10))
+Output(2,6," ")
+If ⌊POKE(10)=0
+Output(2,7,"Badges")
+If ⌊POKE(10)=1
+Output(2,7,"Badge")
+If ⌊POKE(10)≥2
+Output(2,7,"Badges")
+Output(1,12,"L.")
+Output(1,14,⌊POKE(3))
+Output(3,1,"W:")
+Output(3,3,⌊POKE(18))
+Output(3,7,"L:")
+Output(3,9,⌊POKE(19))
+Fix 2
+If ⌊POKE(18)=0 and ⌊POKE(19)=0
+Goto UV
+⌊POKE(18)/(⌊POKE(18)+⌊POKE(19))→H
+Lbl UV
+H*100→H
+Output(3,13,H)
+If ⌊POKE(18)=0 and ⌊POKE(19)=0
+Output(3,13,"0.00")
+Fix 0
+If ⌊POKE(6)=0 and ⌊POKE(1)>2
+Output(3,7,"255")
+Output(4,1,⌊POKE(8))
+If ⌊POKE(8)<10000
+Then
+5→K
+6→P
+11→T
+13→U
+End
+If ⌊POKE(8)<1000
+Then
+4→K
+5→P
+10→T
+12→U
+End
+If ⌊POKE(8)<100
+Then
+3→K
+4→P
+9→T
+11→U
+End
+If ⌊POKE(8)<10
+Then
+2→K
+3→P
+8→T
+10→U
+End
+Output(4,K,"/")
+Output(4,P,⌊POKE(9))
+Output(4,T,"-")
+If ⌊POKE(2)=0
+Goto 23
+Output(4,U,((⌊POKE(8)/⌊POKE(9))*100))
+Lbl 23
+Output(5,1,"Attack:")
+Output(5,8,⌊POKE(4))
+Output(6,1,"Defense:")
+Output(6,9,⌊POKE(5))
+Output(7,1,"XP:")
+Output(7,4,⌊POKE(7))
+If ⌊POKE(6)=0 and ⌊POKE(1)>2
+Output(7,4,(2^31))
+Output(8,1,"Nxt lvl:")
+If ⌊POKE(3)<100
+Then
+(⌊POKE(3)-1)^3→E
+(⌊POKE(3)^3)-E→F
+⌊POKE(7)-E→G
+G(100)/F→H
+Output(8,9,(F-G))
+Else
+Output(8,9,"0")
+End
+Output(8,14,"")
+Fix 1
+Output(8,15,"")
+Float
+0→G
+Pause 
+If ⌊POKE(1)=2
+Goto 5
+If ⌊POKE(1)=3
+Goto 12
+If ⌊POKE(1)=4
+Goto 15
+If ⌊POKE(1)=5
+Goto 24
+If ⌊POKE(1)=6
+Goto 28
+If ⌊POKE(1)=7
+Goto 37
+If ⌊POKE(1)=8
+Goto 42
+Lbl 15
+4→⌊POKE(1)
+0→G
+Output(4,4,"Loading...")
+Menu("Pewter City","Pokemon Center",13,"Gym",16,"Viridian City",17,"Mt. Moon",18,"View Map",98,"View Poke",91,"Diglett Cave",25)
+Lbl 17
+12→X
+2→L
+5→H
+Goto 99
+Lbl 16
+If ⌊POKE(10)>0 and ⌊POKE(10)≠3
+Then
+ClrHome
+Disp "You already","defeated me!","GO AWAY!"
+Pause 
+Goto 15
+End
+ClrHome
+Disp "Welcome to my","gym. My name is","Brock!","The chicks call","me Brockie."
+Pause 
+ClrHome
+Disp "My Pokemon are","rock types, the","strongest type","ever!"
+Pause 
+ClrHome
+Disp "Are you ready",Str0,"I shall show you","no mercy!"
+Pause 
+1→G
+19→X
+10→L
+If ⌊POKE(10)=3
+⌊POKE(3)-7→L
+10→H
+If ⌊POKE(10)=3
+⌊POKE(3)-3→H
+
+Goto 99
+Lbl 19
+ClrHome
+Disp "Hmmm, not bad.","Now prepare for","your demise!"
+Pause 
+2→G
+20→X
+12→L
+12→H
+38→E
+24→O
+51→R
+Goto 99
+Lbl 20
+If ⌊POKE(10)≠3
+⌊POKE(10)+1→⌊POKE(10)
+ClrHome
+Disp "You...You..."
+Pause 
+ClrHome
+Disp "YOU LITTLE SCUM","BAG! HOW DARE","YOU BEAT ME!"
+Pause 
+ClrHome
+If ⌊POKE(10)≠3
+Disp "Oh well.","That was a great","battle. I","suppose you","deserve this."
+Pause 
+ClrHome
+If ⌊POKE(10)≠3
+Disp Str0,"recieved the","Boulder badge!"
+Pause 
+ClrHome
+If ⌊POKE(10)≠3
+iPart((.15)⌊POKE(4))+⌊POKE(4)→⌊POKE(4)
+If ⌊POKE(10)≠3
+iPart((.15)⌊POKE(5))+⌊POKE(5)→⌊POKE(5)
+If ⌊POKE(10)≠3
+Disp "Also with the","badge, your","att and def","is increased by","15 Percent!"
+Pause 
+ClrHome
+Disp "Now, GET LOST!"
+Pause 
+Goto 15
+Lbl 18
+If ⌊POKE(10)<1
+Then
+ClrHome
+Disp "Hey! There are","strong Pokemon","in Mt. Moon.","You aren't ready","yet!"
+Pause 
+Goto 15
+End
+24→X
+7→L
+10→H
+Goto 99
+Lbl 25
+If ⌊POKE(10)<3
+Then
+ClrHome
+Disp "It's too dark","to see anything.","A FLASHlight","would help."
+Pause 
+Goto 15
+Else
+20→L
+25→H
+42→X
+Goto 99
+End
+Lbl 24
+5→⌊POKE(1)
+Output(4,4,"Loading...")
+Menu("Mt. Moon","Pokemon Center",13,"Enter Mt. Moon",26,"Pewter City",27,"View Map",98,"View Poke",91)
+Lbl 27
+15→X
+7→L
+10→H
+Goto 99
+Lbl 26
+If ⌊POKE(11)=1
+Then
+28→X
+10→L
+12→H
+Goto 99
+End
+If ⌊POKE(11)≠1
+Then
+ClrHome
+Disp "What are you","doing, messing","with Team","Rocket?"
+Pause 
+ClrHome
+Disp "Prepare for a","most humiliating","defeat!"
+Pause 
+3→G
+29→X
+8→L
+8→H
+30→E
+25→O
+28→R
+Goto 99
+Lbl 29
+ClrHome
+Disp "Nice match, now","it's my turn!"
+Pause 
+4→G
+30→X
+10→L
+10→H
+40→E
+35→O
+35→R
+Goto 99
+Lbl 30
+ClrHome
+Disp "Fight our boss","and prepare to","lose!"
+Pause 
+5→G
+31→X
+12→L
+12→H
+50→E
+45→O
+45→R
+Goto 99
+Lbl 31
+ClrHome
+1→⌊POKE(11)
+Disp "This isn't","over!","Team Rocket has","risen again!"
+Pause 
+Goto 28
+End
+Lbl 28
+6→⌊POKE(1)
+0→G
+Output(4,4,"Loading...")
+Menu("Cerulean City","Pokemon Center",13,"Gym",32,"Rock Tunnel",35,"Saffron City",36,"Undergd. Pass",41,"View Map",98,"View Poke",91)
+Lbl 32
+ClrHome
+If ⌊POKE(10)≥2
+Then
+Disp "Fly Away!"
+Pause 
+Goto 28
+End
+Disp "Oi mate, welcome","to me gym.","The name's Misty"
+Pause 
+ClrHome
+Disp "Water-type","Pokemon are EPIC"
+Pause 
+ClrHome
+Disp "Prepare to die!"
+Pause 
+6→G
+33→X
+18→L
+18→H
+50→E
+32→O
+36→R
+Goto 99
+Lbl 33
+ClrHome
+Disp "YOU SUCK!","THAT WAS MY","FAVORITE POKE!"
+Pause 
+ClrHome
+Disp "PREPARE TO DIE!"
+Pause 
+7→G
+34→X
+21→L
+21→H
+55→E
+45→O
+49→R
+Goto 99
+Lbl 34
+⌊POKE(10)+1→⌊POKE(10)
+ClrHome
+Disp "WAAAA!","C'mon mate!"
+Pause 
+ClrHome
+Disp "Fine, you beat","me!","You earned this."
+Pause 
+ClrHome
+Disp Str0,"recieved the","Cascade badge!"
+Pause 
+ClrHome
+⌊POKE(9)+5→⌊POKE(9)
+Disp "Also with the","badge, your HP","goes up 5."
+Pause 
+ClrHome
+Disp "NOW FLY AWAY!"
+Pause 
+Goto 28
+Lbl 35
+37→X
+12→L
+15→H
+Goto 99
+Lbl 36
+If ⌊POKE(12)=0
+Then
+ClrHome
+Disp "I'm so thirsty!!","I need SODA POP!"
+Pause 
+Goto 28
+Else
+Goto 38
+End
+Lbl 37
+7→⌊POKE(1)
+0→G
+Output(4,4,"Loading...")
+Menu("Rock Tunnel","Poke Center",13,"Cerulean City",39,"Enter Rck Tun.",40,"View Map",98,"View Poke",91)
+Lbl 39
+12→L
+15→H
+28→X
+Goto 99
+Lbl 40
+If ⌊POKE(10)<3
+Then
+ClrHome
+Disp "It's too dark","to see anything,","a FLASHlight","would help."
+Pause 
+Goto 37
+Else
+Disp "BLAH"
+End
+Lbl 41
+Goto 42
+Lbl 42
+8→⌊POKE(1)
+0→G
+Output(4,4,"Loading...")
+Menu("Vermillion City","Pokemon Center",13,"Gym",43,"Diglett Cave",48,"Saffron City",45,"View Map",98,"View Poke",91,"More...",47)
+Lbl 45
+If ⌊POKE(12)=0
+Then
+ClrHome
+Disp "I'm so thirsty!!","I need SODA POP!"
+Pause 
+Goto 42
+Lbl 47
+Output(4,4,"Loading...")
+Menu("More","Route 11",49,"Undergd. Pass",50,"S.S. Anne",51,"Back",42)
+Lbl 50
+Goto 28
+Lbl 43
+If ⌊POKE(10)>2
+Then
+ClrHome
+Disp "I am still","shocked that","you beat me!"
+Pause 
+Goto 42
+End
+ClrHome
+Disp "Welcome to my","gym soldier!","Lt. Surge here!","Stand up","straight when","I'm talking to","you, Punk!"
+Pause 
+ClrHome
+Disp "My Pokemon are","electric type!","And are going","to give you","a shocking","battle!"
+Pause 
+ClrHome
+Disp "Soldier ",Str0,"Prepare to be","zapped!"
+Pause 
+8→G
+44→X
+21→L
+21→H
+62→E
+61→O
+40→R
+Goto 99
+Lbl 44
+ClrHome
+Disp "NOO!","I never back","down without","a fight!"
+Pause 
+9→G
+46→X
+18→L
+18→H
+57→E
+41→O
+32→R
+Goto 99
+Lbl 46
+⌊POKE(10)+1→⌊POKE(10)
+ClrHome
+Disp "CRAP!"
+Pause 
+ClrHome
+Disp "How did you win?","I've never lost","a single battle!"
+Pause 
+ClrHome
+Disp "Fine.","You did well",Str0
+Pause 
+ClrHome
+Disp Str0,"recieved the","Thunder badge!"
+Pause 
+ClrHome
+5+⌊POKE(4)→⌊POKE(4)
+5+⌊POKE(5)→⌊POKE(5)
+Disp "Also with the","badge, your","att and def","is increased by","5 Points!"
+Pause 
+ClrHome
+Disp "And you can","also use flash","in dark caves","to navigate","through them!"
+Pause 
+ClrHome
+Disp "Now, go away!","I want to cry","in peace!"
+Pause 
+ClrHome
+Goto 42
+Lbl 48
+If ⌊POKE(10)<3
+Then
+ClrHome
+Disp "It's too dark","to see anything.","A FLASHlight","would help."
+Pause 
+Goto 42
+Else
+15→X
+20→L
+25→H
+Goto 99
+End
